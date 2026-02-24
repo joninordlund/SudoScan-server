@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <h2>SudoScan</h2>
+    <p id="status">Take a picture to get started</p>
+
+    <input type="file" 
+        accept="image/*" 
+        capture="environment" 
+        style="display: none;"
+        id="cameraInput"
+    />
+
+    <div class="btnRow">
+        <label for="cameraInput" class="btnCamera" id="cameraLabel">Use Camera</label>
+        <button class="btnSend" id="sendBtn" disabled>Send</button>
+    </div>
+
+    <img id="preview" style="display:none;" alt="Preview" />
+
+    <script src="/static/index.js"></script>    
+</body>
+</html>

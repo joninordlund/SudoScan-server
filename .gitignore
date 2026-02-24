@@ -1,0 +1,22 @@
+# Python-väliaikaistiedostot
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+
+# Docker ja datakansiot (TÄRKEÄ: ei kuvia tai serttejä repoon)
+backend/uploads/*.jpg
+backend/uploads/*.png
+data/
+letsencrypt/
+
+# Käyttöjärjestelmän omat roskat
+.DS_Store
+Thumbs.db
+
+# VS Code asetukset
+.vscode/
