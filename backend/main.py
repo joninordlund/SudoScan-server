@@ -54,11 +54,16 @@ app = FastAPI(lifespan=lifespan)
 async def create_session():
     new_id = str(uuid.uuid4())
     active_sessions[new_id] = time.time()
+    print(f"Server: Luotu uusi sessio {new_id}. Aktiivisia nyt: {len(active_sessions)}")
     return {"uuid": new_id}
 
 @app.post("/api/upload/{session_id}")
 async def upload_file(session_id: str, file: UploadFile = File(...)):
+    # Debug-tuloste:
+    print(f"Server: Upload yritys ID:lle {session_id}")
+    print(f"Server: Tunnetut sessiot tässä prosessissa: {list(active_sessions.keys())}")
     if session_id not in active_sessions:
+        print(f"Server: 403 hylätty! ID {session_id} ei löydy.")
         raise HTTPException(status_code=403, detail="Session invalid or expired")
     
     file_path = UPLOAD_DIR / f"{session_id}.jpg"
