@@ -2,16 +2,17 @@ const cameraInput = document.getElementById('cameraInput');
 const status0 = document.getElementById('status');
 const preview = document.getElementById('preview');
 const sendBtn = document.getElementById('sendBtn');
+const cameraLabel = document.getElementById('cameraLabel');
 
 const pathParts = window.location.pathname.split('/');
 const sessionId = pathParts[pathParts.length - 1];
 
 if (!sessionId || sessionId === "" || sessionId === "capture") {
-    status0.textContent = "Virhe: Session ID puuttuu. Skannaa QR-koodi uudestaan.";
+    status0.textContent = "Error: Session ID missing. Scan QR-code again.";
     cameraLabel.style.display = 'none';
 }
 
-cameraInput.addEventListener('change', function(e) {
+cameraInput.addEventListener('change', function (e) {
     const file = e.target.files[0];
     if (!file) return;
 
@@ -22,7 +23,7 @@ cameraInput.addEventListener('change', function(e) {
     sendBtn.disabled = false;
 });
 
-sendBtn.addEventListener('click', async function() {
+sendBtn.addEventListener('click', async function () {
     const file = cameraInput.files[0];
     if (!file || !sessionId) {
         status0.textContent = 'Error: Missing image or ID';
@@ -44,6 +45,7 @@ sendBtn.addEventListener('click', async function() {
         if (response.ok) {
             status0.textContent = 'Success! You can go back to the app.';
             preview.style.opacity = '0.5';
+            cameraLabel.style.display = 'none';
         } else {
             status0.textContent = 'Upload failed.';
             sendBtn.disabled = false;

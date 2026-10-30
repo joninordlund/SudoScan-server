@@ -1,19 +1,29 @@
 const cameraInput = document.getElementById('cameraInput');
 const sendBtn = document.getElementById('sendBtn');
 const statusText = document.getElementById('status');
+const preview = document.getElementById('preview');
 
 let compressedBlob = null;
 
 cameraInput.addEventListener('change', async (e) => {
     const file = e.target.files[0];
-    if (!file) {
-        return;
-    }
+    if (!file) return;
+
     statusText.innerText = "Processing image...";
     sendBtn.disabled = true;
 
     try {
+
         compressedBlob = await compressImage(file, 1200, 0.7);
+
+        const previewUrl = URL.createObjectURL(compressedBlob);
+        preview.src = previewUrl;
+        preview.style.display = 'block';
+        preview.style.opacity = '1';
+
+        preview.onload = () => {
+            URL.revokeObjectURL(previewUrl);
+        };
 
         statusText.innerText = "Image ready to send (" + (compressedBlob.size / 1024).toFixed(0) + " KB)";
         sendBtn.disabled = false;
